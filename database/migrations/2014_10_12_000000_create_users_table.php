@@ -18,6 +18,12 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->enum('role',['admin', 'user']);
+
+            $table->string('linkedin_link')->nullable();
+            $table->string('github_link')->nullable();
+            $table->string('picture_link')->nullable();
+
             $table->rememberToken();
             $table->timestamps();
         });
