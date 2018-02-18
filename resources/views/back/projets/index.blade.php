@@ -27,7 +27,8 @@
     @foreach($projets as $projet)
         <tr>
             <td>
-                <img src="/images/{{$picture->link}}" width="100px">
+            {{ dump( $projet->pictures()->link ) }}
+               
             </td>
             <td>Name: {{$projet->name}}</td>
             <td>Id: {{$projet->id}}</td>
