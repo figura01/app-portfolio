@@ -39,8 +39,8 @@ class ProjetController extends Controller
 
         $categories = Categorie::pluck('title', 'id')->all();
         $tags = Tag::pluck('name', 'id')->all();
-
-        return view('back.projets.create', compact('tags','categories'));
+        $pictures = Picture::all();
+        return view('back.projets.create', compact('tags','categories','pictures'));
     }
 
     /**
@@ -84,16 +84,18 @@ class ProjetController extends Controller
             
             $newFileName = str_random(12);
             $fileName = "import".$newFileName . "." . $ext;
-            $im->move(env('PATH_IMAGES', 'img'), $fileName);
+            $im->move(env('PATH_IMAGES', 'images'), $fileName);
 
             $picture = Picture::create([
                 'name' => $request->name,
                 'link' => $fileName,
                 'size' => $im->getClientSize()
             ]);
-
+            
             $projet->pictures()->attach($picture->id);
-            //return Redirect::back()->with('successMessage','Success, l\' image a bien été uploader');
+            return Redirect::back()->with('successMessage','Success, l\' image a bien été uploader');
+        }else{
+            return Redirect::back()->with('errorMessage','Erreur, pas d\'image associé');
         }
 
         

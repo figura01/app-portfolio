@@ -27,13 +27,17 @@
     @foreach($projets as $projet)
         <tr>
             <td>
-            {{ dump( $projet->pictures()->link ) }}
-               
+                {{dump ($projet->pictures[0]->link)}}
+               <img src="{{ asset('/images/' . $projet->pictures[0]->link ) }}">
             </td>
             <td>Name: {{$projet->name}}</td>
             <td>Id: {{$projet->id}}</td>
             <td>Size: {{$projet->size}}</td>
-            <td>Link: {{$projet->link}}</td>
+            <td>Tags: 
+                @foreach($projet->tags as $tag)
+                    {{$tag->name}}
+                @endforeach
+            </td>
             <td>
                 <a href="" class="btn btn-primary">Voir</a>
                 <a href="/admin/projets/modify/{{$projet->id}}" class="btn btn-primary">Modifier</a>
@@ -42,7 +46,7 @@
         </tr>
     @endforeach
         <tfooter>
-            <td colspan="6"><a hreh="/admin/projets/create" class="btn btn-success">Ajouter</a></td>
+            <td colspan="6"><a href="/admin/projets/create" class="btn btn-success">Ajouter</a></td>
         
         </tfooter>
 @else

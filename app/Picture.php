@@ -17,6 +17,6 @@ class Picture extends Model
 
     public function projets()
     {
-        return $this->hasMany(Projet::class);
+        return $this->belongsToMany(Projet::class);
     }
 }
